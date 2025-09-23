@@ -28,6 +28,12 @@ export default function AadhaarUpload() {
     const [frontFileFile, setFrontFileFile] = useState<File | null>(null);
     const [backCameraFile, setBackCameraFile] = useState<File | null>(null);
     const [backFileFile, setBackFileFile] = useState<File | null>(null);
+    const [response, setResponse] = useState(null)
+
+
+    if (response) {
+        console.log(response, "setResponsesetResponse")
+    }
 
     // Preview URLs for display
     const [frontCameraPreview, setFrontCameraPreview] = useState<string | null>(null);
@@ -100,15 +106,15 @@ export default function AadhaarUpload() {
             const formData = new FormData();
 
             // Add files to FormData
-            formData.append('frontImage', frontFile);
-            formData.append('backImage', backFile);
+            formData.append('Front_EmiratesID1', frontFile);
+            formData.append('Back_EmiratesID2', backFile);
 
             // Add metadata if needed
             formData.append('documentType', 'emiratesId');
             formData.append('uploadTime', new Date().toISOString());
 
             // Make API call to backend
-            const response = await fetch('http://localhost:5000/api/emirates/verify-emirates', {
+            const response = await fetch('http://localhost:3001/api/emirates/verify-emirates', {
                 method: 'POST',
                 body: formData,
                 // Don't set Content-Type header - let browser set it with boundary
@@ -120,16 +126,19 @@ export default function AadhaarUpload() {
             }
 
             const result = await response.json();
+            setResponse(result)
 
             // Handle successful upload
             setSuccess(true);
             console.log('Upload successful:', result);
 
             // Navigate after a short delay to show success message
+            const queryParams = new URLSearchParams({ response: JSON.stringify(result) }).toString();
             setTimeout(() => {
-                router.push('/about');
+                setTimeout(() => {
+                    router.push(`/about?${queryParams}`); // Redirect with the query string
+                }, 2000);
             }, 2000);
-
         } catch (err) {
             console.error('Upload error:', err);
             setError(err instanceof Error ? err.message : 'Failed to upload documents. Please try again.');
@@ -152,7 +161,7 @@ export default function AadhaarUpload() {
     ) => (
         <Card
             sx={{
-                mb: 3,
+                mb: 1,
                 borderRadius: 3,
                 boxShadow: 3,
                 background: "linear-gradient(135deg, #f9f9f9, #ffffff)",
@@ -171,7 +180,7 @@ export default function AadhaarUpload() {
 
                 <Stack
                     direction={isMobile ? "column" : "row"}
-                    spacing={3}
+                    // spacing={3}
                     alignItems="center"
                     justifyContent="center"
                 >
@@ -343,7 +352,7 @@ export default function AadhaarUpload() {
                 "Front"
             )}
 
-            <Divider sx={{ my: 3 }} />
+            <Divider sx={{ my: 1 }} />
 
             {/* Back Side */}
             {renderUploadSection(
