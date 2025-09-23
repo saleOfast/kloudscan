@@ -114,9 +114,12 @@ export default function AadhaarUpload() {
             formData.append('uploadTime', new Date().toISOString());
 
             // Make API call to backend
-            const response = await fetch('http://localhost:3001/api/emirates/verify-emirates', {
+            const response = await fetch('https://kloudscan-backend-1.onrender.com/api/emirates/verify-emirates', {
                 method: 'POST',
                 body: formData,
+                // headers: {
+                //     'Content-Type': 'application/json'
+                // }
                 // Don't set Content-Type header - let browser set it with boundary
             });
 
@@ -134,11 +137,11 @@ export default function AadhaarUpload() {
 
             // Navigate after a short delay to show success message
             const queryParams = new URLSearchParams({ response: JSON.stringify(result) }).toString();
+
             setTimeout(() => {
-                setTimeout(() => {
-                    router.push(`/about?${queryParams}`); // Redirect with the query string
-                }, 2000);
+                router.push(`/about?${queryParams}`); // Redirect with the query string
             }, 2000);
+
         } catch (err) {
             console.error('Upload error:', err);
             setError(err instanceof Error ? err.message : 'Failed to upload documents. Please try again.');
