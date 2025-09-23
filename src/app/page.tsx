@@ -58,7 +58,7 @@ export default function AadhaarUpload() {
             const file = e.target.files[0];
 
             // Validate file size (5MB max)
-            if (file.size > 5 * 1024 * 1024) {
+            if (file.size > 10 * 1024 * 1024) {
                 setError("File size must be less than 5MB");
                 return;
             }
