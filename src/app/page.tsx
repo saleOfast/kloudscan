@@ -114,7 +114,7 @@ export default function AadhaarUpload() {
             formData.append('uploadTime', new Date().toISOString());
 
             // Make API call to backend
-            const response = await fetch('https://kloudscan-backend-1.onrender.com/api/emirates/verify-emirates', {
+            const response = await fetch('https://kloudscan-backend-pyzp.onrender.com/api/emirates/verify-emirates', {
                 method: 'POST',
                 body: formData,
                 // headers: {

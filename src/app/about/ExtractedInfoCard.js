@@ -32,25 +32,88 @@ export default function ExtractedInfoCard() {
         }
     }, [searchParams]);
 
+    const parseDate = (dateString) => {
+        if (!dateString) return null;
+        // Handle different date formats: DD-MM-YYYY, MM/DD/YYYY, etc.
+        const date = new Date(dateString);
+        return isNaN(date.getTime()) ? null : date.toISOString().split('T')[0];
+    };
     // Submit extracted data to backend
     const handleSubmit = async () => {
         if (!response) return;
 
-        const payload = {
-            fullName: response?.data?.back_result?.data?.name,
-            idNumber: response?.data?.back_result?.data?.idNumber,
-            nationality: response?.data?.back_result?.data?.nationality,
-            dateOfBirth: response?.data?.back_result?.data?.DOB,
-            gender: response?.data?.back_result?.data?.sex,
-            expiryDate: response?.data?.back_result?.data?.expiryDate,
-            Front_EmiratesID1: response.data.Front_EmiratesID1,
-            Back_EmiratesID2: response.data.Back_EmiratesID2
+        // const payload = {
 
+        //     fullName: response?.data?.back_result?.data?.name,
+        //     idNumber: response?.data?.back_result?.data?.idNumber,
+        //     nationality: response?.data?.back_result?.data?.nationality,
+        //     dateOfBirth: response?.data?.back_result?.data?.DOB,
+        //     gender: response?.data?.back_result?.data?.sex,
+        //     expiryDate: response?.data?.back_result?.data?.expiryDate,
+        //     Front_EmiratesID1: response.data.Front_EmiratesID1,
+        //     Back_EmiratesID2: response.data.Back_EmiratesID2,
+
+
+        // };
+        // const payload = {
+        //     front_record_id: response.data.front_result.recordId,
+        //     front_data_retrieval_status: response.data.front_result.dataRetrievalStatus,
+        //     front_id_number: response.data.front_result.data.idNumber,
+        //     front_name: response.data.front_result.data.name,
+        //     front_sex: response.data.front_result.data.sex,
+        //     front_nationality: response.data.front_result.data.nationality,
+        //     front_dob: parseDate(response.data.front_result.data.DOB),
+        //     front_issue_date: parseDate(response.data.front_result.data.issueDate),
+        //     front_expiry_date: parseDate(response.data.front_result.data.expiryDate),
+        //     front_utc_time_stamp: response.data.front_result.data.utc_time_stamp,
+        //     front_arabic_name_status: response.data.front_result.data.arabic_name_status,
+        //     front_arabic_name: response.data.front_result.data.arabic_name,
+
+        //     // Back OCR result fields
+        //     back_record_id: response.data.back_result.recordId,
+        //     back_data_retrieval_status: response.data.back_result.dataRetrievalStatus,
+        //     back_id_number: response.data.back_result.data.idNumber,
+        //     back_card_number: response.data.back_result.data.cardNumber,
+        //     back_name: response.data.back_result.data.name,
+        //     back_sex: response.data.back_result.data.sex,
+        //     back_nationality: response.data.back_result.data.nationality,
+        //     back_dob: parseDate(response.data.back_result.data.DOB),
+        //     back_issue_date: parseDate(response.data.back_result.data.issueDate),
+        //     back_issue_place: response.data.back_result.data.issuePlace,
+        //     back_expiry_date: parseDate(response.data.back_result.data.expiryDate),
+        //     back_occupation: response.data.back_result.data.occupation,
+        //     back_employer: response.data.back_result.data.employer,
+        //     back_family_sponsor: response.data.back_result.data.familySponsor,
+        //     back_utc_time_stamp: response.data.back_result.data.utc_time_stamp,
+
+        //     // Uploaded images (keep original mapping if needed)
+        //     Front_EmiratesID1: response.data.Front_EmiratesID1,
+        //     Back_EmiratesID2: response.data.Back_EmiratesID2,
+
+        // }
+
+
+        const payload = {
+            message: "Verification successful", // optional
+            data: {
+                front_result: response.data.front_result,
+                back_result: response.data.back_result,
+                Front_EmiratesID1: response.data.Front_EmiratesID1,
+                Back_EmiratesID2: response.data.Back_EmiratesID2,
+            }
         };
+
+        // const payload = {
+
+        //     front_result: response.data.front_result.data,
+        //     back_result: response.data.back_result.data,
+        //     Front_EmiratesID1: response.data.Front_EmiratesID1,
+        //     Back_EmiratesID2: response.data.Back_EmiratesID2
+        // }
 
         try {
             setIsSubmitting(true);
-            const res = await fetch('http://localhost:3001/api/emirates/save-emirates', {
+            const res = await fetch('https://kloudscan-backend-pyzp.onrender.com/api/emirates/save-emirates', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
