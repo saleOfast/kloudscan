@@ -130,7 +130,7 @@ export default function ExtractedInfoCard() {
             setSubmitSuccess(true);
         } catch (err) {
             console.error("❌ Save error:", err);
-            alert("Something went wrong while saving. Please try again.");
+            alert("Emirates ID data already exists");
         } finally {
             setIsSubmitting(false);
         }
