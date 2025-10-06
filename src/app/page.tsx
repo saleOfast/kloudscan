@@ -318,10 +318,10 @@ export default function AadhaarUpload() {
             <nav className="p-3 bg-white shadow rounded-lg relative">
                 <Link href="/">
                     <Image
-                        src="/WhatsApp Image 2025-09-30 at 2.25.57 PM.jpeg"
+                        src="/initial screen-01.png"
                         alt="Company Logo"
                         width={420}
-                        height={300}
+                        height={310}
                         style={{ objectFit: "contain", borderRadius: '10px' }}
                         priority
                     />
