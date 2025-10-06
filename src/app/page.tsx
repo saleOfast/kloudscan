@@ -19,6 +19,8 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function AadhaarUpload() {
     const router = useRouter();
@@ -176,7 +178,7 @@ export default function AadhaarUpload() {
                     variant="h6"
                     mb={2}
                     fontWeight="bold"
-                    color="primary.main"
+                    color="black"
                 >
                     {title}
                 </Typography>
@@ -195,8 +197,9 @@ export default function AadhaarUpload() {
                             size="large"
                             startIcon={<PhotoCameraIcon />}
                             fullWidth={isMobile}
-                            sx={{ mb: 2, borderRadius: 2 }}
+                            sx={{ mb: 2, borderRadius: 2, backgroundColor: '#D3AF37', color: 'black' }}
                             disabled={isLoading}
+
                         >
                             Capture with Camera
                             <input
@@ -252,12 +255,12 @@ export default function AadhaarUpload() {
                     {/* File Upload */}
                     <Box textAlign="center">
                         <Button
-                            variant="outlined"
+                            variant="contained"
                             component="label"
                             size="large"
                             startIcon={<UploadFileIcon />}
                             fullWidth={isMobile}
-                            sx={{ mb: 2, borderRadius: 2 }}
+                            sx={{ mb: 2, borderRadius: 2, backgroundColor: '#D3AF37', color: 'black', width: '252px' }}
                             disabled={isLoading}
                         >
                             Upload from Files
@@ -311,104 +314,124 @@ export default function AadhaarUpload() {
     );
 
     return (
-        <Box
-            sx={{
-                maxWidth: 800,
-                mx: "auto",
-                mt: 1,
-                p: { xs: 2, sm: 4 },
-            }}
-        >
-            <Typography
-                variant="h5"
-                mb={1}
-                textAlign="center"
-                fontWeight="bold"
-                color="primary"
+        <>
+            <nav className="p-3 bg-white shadow rounded-lg relative">
+                <Link href="/">
+                    <Image
+                        src="/WhatsApp Image 2025-09-30 at 2.25.57 PM.jpeg"
+                        alt="Company Logo"
+                        width={420}
+                        height={300}
+                        style={{ objectFit: "contain", borderRadius: '10px' }}
+                        priority
+                    />
+                </Link>
+            </nav>
+
+            {/* <h1 style={{ textAlign: 'center', fontSize: '40px' }}>
+                kloudscane
+            </h1> */}
+
+
+            <Box
+                sx={{
+                    maxWidth: 800,
+                    mx: "auto",
+                    mt: 1,
+                    p: { xs: 2, sm: 4 },
+                }}
             >
-                Upload Your Emirates ID
-            </Typography>
-            <Typography sx={{ fontSize: '12px', textAlign: 'center', mb: 3 }}>
-                Please upload clear photos of both the front and back of your Emirates ID. Ensure the text is readable and the entire card is visible.
-                <br />
-                JPG, PNG, PDF formats • Maximum 5MB file size • Clear, readable text
-            </Typography>
-
-            {/* Error Alert */}
-            {error && (
-                <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>
-                    {error}
-                </Alert>
-            )}
-
-            {/* Front Side */}
-            {renderUploadSection(
-                "Front Side of Emirates ID",
-                frontCameraFile,
-                frontFileFile,
-                frontCameraPreview,
-                frontFilePreview,
-                setFrontCameraFile,
-                setFrontFileFile,
-                setFrontCameraPreview,
-                setFrontFilePreview,
-                "Front"
-            )}
-
-            <Divider sx={{ my: 1 }} />
-
-            {/* Back Side */}
-            {renderUploadSection(
-                "Back Side of Emirates ID",
-                backCameraFile,
-                backFileFile,
-                backCameraPreview,
-                backFilePreview,
-                setBackCameraFile,
-                setBackFileFile,
-                setBackCameraPreview,
-                setBackFilePreview,
-                "Back"
-            )}
-
-            {/* Process Button */}
-            <Box textAlign="center" mt={3}>
-                <Button
-                    fullWidth
-                    variant="contained"
-                    size="large"
-                    color="primary"
-                    onClick={handleProcessDocuments}
-                    sx={{ py: 1.5, fontSize: "1rem", borderRadius: 3 }}
-                    disabled={
-                        isLoading ||
-                        !(
-                            (frontCameraFile || frontFileFile) &&
-                            (backCameraFile || backFileFile)
-                        )
-                    }
+                <Typography
+                    variant="h5"
+                    mb={1}
+                    textAlign="center"
+                    fontWeight="bold"
+                    color="black"
                 >
-                    {isLoading ? (
-                        <>
-                            <CircularProgress size={20} sx={{ mr: 1 }} />
-                            Processing...
-                        </>
-                    ) : (
-                        "Process Documents"
-                    )}
-                </Button>
-            </Box>
+                    Upload Your Emirates ID
+                </Typography>
+                <Typography sx={{ fontSize: '12px', textAlign: 'center', mb: 3 }}>
+                    Please upload clear photos of both the front and back of your Emirates ID. Ensure the text is readable and the entire card is visible.
+                    <br />
+                    JPG, PNG, PDF formats • Maximum 5MB file size • Clear, readable text
+                </Typography>
 
-            {/* Success Snackbar */}
-            <Snackbar
-                open={success}
-                autoHideDuration={6000}
-                onClose={() => setSuccess(false)}
-            >
-                <Alert severity="success" onClose={() => setSuccess(false)}>
-                    Documents uploaded successfully! Redirecting...
-                </Alert>
-            </Snackbar>
-        </Box>
+                {/* Error Alert */}
+                {error && (
+                    <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>
+                        {error}
+                    </Alert>
+                )}
+
+                {/* Front Side */}
+                {renderUploadSection(
+                    "Front Side of Emirates ID",
+                    frontCameraFile,
+                    frontFileFile,
+                    frontCameraPreview,
+                    frontFilePreview,
+                    setFrontCameraFile,
+                    setFrontFileFile,
+                    setFrontCameraPreview,
+                    setFrontFilePreview,
+                    "Front"
+                )}
+
+                <Divider sx={{ my: 1 }} />
+
+                {/* Back Side */}
+                {renderUploadSection(
+                    "Back Side of Emirates ID",
+                    backCameraFile,
+                    backFileFile,
+                    backCameraPreview,
+                    backFilePreview,
+                    setBackCameraFile,
+                    setBackFileFile,
+                    setBackCameraPreview,
+                    setBackFilePreview,
+                    "Back"
+                )}
+
+                {/* Process Button */}
+                <Box textAlign="center" mt={3}>
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        size="large"
+                        // color="primary"
+                        onClick={handleProcessDocuments}
+                        sx={{ py: 1.5, fontSize: "1rem", borderRadius: 3, backgroundColor: '#D3AF37' }}
+                        disabled={
+                            isLoading ||
+                            !(
+                                (frontCameraFile || frontFileFile) &&
+                                (backCameraFile || backFileFile)
+                            )
+                        }
+                    >
+                        {isLoading ? (
+                            <>
+                                <CircularProgress size={20} sx={{ mr: 1 }} />
+                                Processing...
+                            </>
+                        ) : (
+                            "Process Documents"
+                        )}
+                    </Button>
+                </Box>
+
+                {/* Success Snackbar */}
+                <Snackbar
+                    open={success}
+                    autoHideDuration={6000}
+                    onClose={() => setSuccess(false)}
+                >
+                    <Alert severity="success" onClose={() => setSuccess(false)}>
+                        Documents uploaded successfully! Redirecting...
+                    </Alert>
+                </Snackbar>
+            </Box>
+        </>
     );
 }
