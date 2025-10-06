@@ -193,8 +193,8 @@ export default function ExtractedInfoCard() {
                             fullWidth
                             variant="contained"
                             size="large"
-                            color="#D3AF37"
-                            sx={{ py: 1, fontSize: "1rem", borderRadius: 3 }}
+                            // color="#D3AF37"
+                            sx={{ py: 1, fontSize: "1rem", borderRadius: 3, backgroundColor: '#D3AF37', color: 'black' }}
                             onClick={handleSubmit}
                             disabled={isSubmitting}
                         >

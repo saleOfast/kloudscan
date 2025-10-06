@@ -401,7 +401,7 @@ export default function AadhaarUpload() {
                         size="large"
                         // color="primary"
                         onClick={handleProcessDocuments}
-                        sx={{ py: 1.5, fontSize: "1rem", borderRadius: 3, backgroundColor: '#D3AF37' }}
+                        sx={{ py: 1.5, fontSize: "1rem", borderRadius: 3, backgroundColor: '#D3AF37', color: 'black' }}
                         disabled={
                             isLoading ||
                             !(
